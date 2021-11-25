@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "name": "Hồ Thích Huy",
+      "avatar": "https://cdn1.viettelstore.vn/images/Product/ProductImage/medium/465883758.jpeg",
+      "price": "456",
+      "id": 1
+    },
+    {
+      "name": "Apple 12 promax",
+      "avatar": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/10/14/637382721010919445_ip-12-pro-max-bac-1.png",
+      "price": "686868",
+      "id": 2
+    }
+  ],
+  "users": [
+    {
+      "email": "huyhtph07087@fpt.edu.vn",
+      "password": "$2a$10$bSh7fnVXq9G5yZr49birS.k5FCEeXwfHkgz3.puA4..WdpkrFIlhq",
+      "id": 1
+    },
+    {
+      "email": "datnvph13011@fpt.edu.vn",
+      "password": "$2a$10$N0dwWMd1/.7PU6j4OlbFte3SoLwKbUciPAaPnBgEPNEFTDB4NVcru",
+      "id": 2
+    }
+  ]
+}

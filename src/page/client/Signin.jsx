@@ -1,10 +1,10 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../src/firebase/firebase.config";
+import { auth } from "../../../src/firebase/firebase.config";
 import { useForm } from "react-hook-form";
-import { signin } from "../src/api/authAPI";
 import { toast } from "react-toastify";
+import {signin} from "../../api/authAPI";
 import { useNavigate } from "react-router-dom";
-import { authenticate } from "../src/authenticate";
+import { authenticate } from "../../../src/authenticate";
 
 const Signin = () => {
   const provider = new GoogleAuthProvider();

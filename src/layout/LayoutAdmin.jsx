@@ -1,36 +1,53 @@
 
 import { Link, Outlet } from "react-router-dom";
+import { Layout, Menu } from 'antd';
+import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+
+
 
 export default function LayoutAdmin() {
-  function formadd(){
-    document.querySelector('.formadd').classList.toggle("active")
-  }
-  
+  const { Header, Content, Footer, Sider } = Layout;
+
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{display: "flex",
-    flexDirection: "column"}}>
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Shop</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-        <Link class="nav-link" to="/admin">Dashboard</Link>
-        </li>
-        <li class="nav-item">
-        <Link class="nav-link" to="product">Product Manager</Link>
-        </li>
-      </ul>
-      
-        <button class="btn btn-outline-success" type="submit" onClick={()=>formadd()}>Thêm mới</button>
-        
-      
+    <div>
+      <Layout>
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          onBreakpoint={broken => {
+            console.log(broken);
+          }}
+          onCollapse={(collapsed, type) => {
+            console.log(collapsed, type);
+          }}
+        >
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+            <Menu.Item key="1" icon={<UserOutlined />}>
+              <Link to="dashboard">Dashboard</Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+            <Link to="product">Product</Link>
+            </Menu.Item>
+            <Menu.Item key="3" icon={<UploadOutlined />}>
+            <Link to="category">Category</Link>
+            </Menu.Item>
+            {/* <Menu.Item key="4" icon={<UserOutlined />}> */}
+            {/* <Link to="/">Dashboard</Link> */}
+            {/* </Menu.Item> */}
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
+          <Content style={{ margin: '24px 16px 0' }}>
+            <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+              <Outlet />
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        </Layout>
+      </Layout>
     </div>
-  </div>
-  <Outlet />
-</nav>
-    
-  );
+
+  )
 }

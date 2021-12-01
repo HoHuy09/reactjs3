@@ -1,27 +1,54 @@
 {
   "products": [
     {
-      "name": "Hồ Thích Huy",
-      "avatar": "https://cdn1.viettelstore.vn/images/Product/ProductImage/medium/465883758.jpeg",
-      "price": "456",
-      "id": 1
+      "name": "12312",
+      "cate_id": "1",
+      "price": "12321",
+      "image": "12312",
+      "description": "1221",
+      "id": 4
     },
     {
-      "name": "Apple 12 promax",
-      "avatar": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/10/14/637382721010919445_ip-12-pro-max-bac-1.png",
-      "price": "686868",
-      "id": 2
+      "name": "aaaa123123",
+      "cate_id": "1",
+      "price": "12312",
+      "image": "https://i.pinimg.com/originals/4e/37/68/4e3768350e3225a15ea3c720a5c4259c.jpg",
+      "description": "bcx",
+      "id": 5
+    },
+    {
+      "name": "123",
+      "cate_id": "1",
+      "price": "12312",
+      "image": "123",
+      "description": "123",
+      "id": 6
     }
   ],
   "users": [
     {
       "email": "huyhtph07087@fpt.edu.vn",
-      "password": "$2a$10$bSh7fnVXq9G5yZr49birS.k5FCEeXwfHkgz3.puA4..WdpkrFIlhq",
+      "password": "$2y$10$LpUs6WEZl9WcS5.ovr2tk.ETbA87b2krz2cIRfPKKR4uPN19bn6JC",
       "id": 1
     },
     {
       "email": "datnvph13011@fpt.edu.vn",
       "password": "$2a$10$N0dwWMd1/.7PU6j4OlbFte3SoLwKbUciPAaPnBgEPNEFTDB4NVcru",
+      "id": 2
+    },
+    {
+      "email": "sinhhiepcx@gmail.com",
+      "password": "$2a$10$xb.zjO2rewYihfSRjNOqvO9Tn4vZ5lLWsoqpuGNh/8cBhtiUwnD7q",
+      "id": 3
+    }
+  ],
+  "categories": [
+    {
+      "name": "abc",
+      "id": 1
+    },
+    {
+      "name": "123",
       "id": 2
     }
   ]

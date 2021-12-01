@@ -1,16 +1,24 @@
 
 import './App.css';
 import { useState, useEffect } from "react";
-import Products from './Products';
+import Products from './page/admin/products/Products';
 import LayoutAdmin from "./layout/LayoutAdmin";
 import LayoutWebsite from "./layout/LayoutWebsite";
 import { list, remove, create, read, update } from './api/productAPI';
 import { BrowserRouter, Routes, Route, Link, Outlet, Navigate } from "react-router-dom";
-import Cproducts from './CpProducts';
-import ProductDetail from "./ProductDetail";
-import Signin from "./Signin";
-import Signup from './Signup';
 import PrivateAdmin from './copoments/PrivateAdmin';
+import Home from './page/client/Home';
+import AddProduct from './page/admin/products/AddProduct';
+import Categories from './page/admin/category/Categories';
+import AddCategory from './page/admin/category/AddCategory';
+import { createCate, listCate, removeCate, updateCate } from './api/categoryAPI';
+import { toast } from 'react-toastify';
+import Signin from './page/client/Signin';
+import Signup from './page/client/Signup';
+import ProductDetail from './page/client/ProductDetail';
+import EditProduct from './page/admin/products/EditProduct';
+import EditCategory from './page/admin/category/EditCategory';
+import Dashboard from './page/admin/Dashboard';
 
 
 
@@ -18,146 +26,110 @@ import PrivateAdmin from './copoments/PrivateAdmin';
 
 function App() {
 
-  const [products, setProduct] = useState([]);
-
+  const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    list().then((response) => setProduct(response.data));
+    list().then((response) => setProducts(response.data));
+    listCate().then((response) => setCategory(response.data));
   }, []);
 
-  const onHandleRemove = (id) => {
+  //////////////Add//////
+  const Addproduct = (product) => {
+    const fakeProduct = {...product };
+    create(fakeProduct).then((response) =>
+      setProducts([...products, (response.data)])
+    );
+  }
+// //-------------------ffff
+//   const onHandelUpdate = (product) => {
+//     updateProduct(product).then(() => {
+//       const newPro = products.map((item) =>
+//         item.id === product.id ? product : item
+//       );
+//       setProducts(newPro);
+//     });
+//   }
+//   // --------Remove-------------------
+  const onHandelRemove = (id) => {
     remove(id).then(() => {
-      // xoa phan tu dua vao state ( render lại màn hình)
-      const newProducts = products.filter((item) => item.id !== id);
-      setProduct(newProducts);
+      const newProduct = products.filter((item) => item.id !== id);
+      setProducts(newProduct);
     });
   };
-  // formedit chưa chạy
-  const formedit = (id) => {
-    document.querySelector('.formedit').classList.toggle("active");
-    read(id).then(response=>{
-      document.querySelector('#namedit').value=response.data.name
-      document.querySelector('#avataredit').value=response.data.avatar
-      document.querySelector('#pricedit').value=response.data.price
-      document.querySelector('#btn-edit').value=response.data.id
-    })
-    document.querySelector('.formedit').addEventListener('submit', function (e) {
-      e.preventDefault();
-      let id = document.querySelector('#btn-edit').value
-      const product = {
-        name: document.querySelector('#namedit').value,
-        avatar: document.querySelector('#avataredit').value,
-        price: document.querySelector('#pricedit').value
-      }
-      update(id,product)
-        .then(() => alert('Sửa thành công!'))
-        .then(() => {
-          list().then(response => setProduct(response.data))
-        })
-        .then(() => document.querySelector('.formedit').classList.remove('active'))
-    })
+  const onHandelUpdate = (product) => {
+    update(product).then(() => {
+      const newPro = products.map((item) =>
+        item.id === product.id ? product : item
+      );
+      setProducts(newPro);
+    });
   }
-  
 
-  useEffect(() => {
-    document.querySelector('.formadd').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const product = {
-        name: document.querySelector('#Name').value,
-        avatar: document.querySelector('#avatar').value,
-        price: document.querySelector('#price').value
-      }
-      create(product)
-        .then(() => alert('Thêm thành công!'))
-        .then(() => {
-          list().then(response => setProduct(response.data))
-        })
-        .then(() => document.querySelector('.formadd').classList.remove('active'))
-    })
-  }, [])
+  ///---------------------------------------------------------------------------------------------------------
+
+  const AddHandelCategory = (categori) => {
+    const fakeCategory = {...categori };
+    createCate(fakeCategory).then((response) =>
+    setCategory([...category, (response.data)])
+    );
+  }
+
+
+const onCateRemove = (id) => {
+  removeCate(id).then(() => {
+    const newCategory= category.filter((item) => item.id !== id);
+    setCategory(newCategory);
+  });
+};
+
+
+
+const onCatelUpdate = (cate) => {
+  updateCate(cate).then(() => {
+      const newPro = category.map((item) =>
+        item.id === cate.id ? cate : item
+      );
+      setCategory(newPro);
+  });
+};
+
+
+
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LayoutWebsite />}>
-            <Route index element={<Cproducts products={products} />} />
-            <Route
-              path="product:id"
-              element={
-                <div>Chi tiết sản phẩm</div>
-              }
-            />
-            <Route path="product/:id" element={<ProductDetail/>} />
-            <Route path="signin" element={<Signin/>} />
-            <Route path="signup" element={<Signup />} />
+            <Route index element={<Home products={products} />} />
+            <Route path="product" element={<div>sản phẩm</div>} />
+            <Route path="product:id" element={<div>Chi tiết sản phẩm</div>} />
+            <Route path="product/:id" element={<ProductDetail />}/>
+            <Route path="signin" element={<Signin />}/>
+            <Route path="signup" element={<Signup />}/>
             <Route path="category" element={<div>Danh muc san pham</div>} />
           </Route>
-          <Route path="admin/*" element={
-              <PrivateAdmin abc="123">
-                <LayoutAdmin />
-              </PrivateAdmin>
-            }>
+          <Route path="admin/" element={
+            <PrivateAdmin abc="123">
+              <LayoutAdmin />
+            </PrivateAdmin>
+          }>
             <Route index element={<Navigate to="dashboard" />} />
-            <Route path="product" element={
-                <Products products={products} onRemove={onHandleRemove} edit1={formedit}/>
-            }
-            />
+            <Route path="dashboard" element={<Dashboard products={products} category={category}/>} />
+            <Route path="product" element={<Products product={products} onRemove={onHandelRemove}/>} />
+            <Route path="product/add" element={<AddProduct category={category} onAdd={Addproduct}/>} />
+            <Route path="product/edit/:id" element={<EditProduct category={category} onUpdate={onHandelUpdate}/>} />
+
+            <Route path="category" element={<Categories category={category} onDelete={onCateRemove} />} />
+            <Route path="category/add" element={<AddCategory onAdd={AddHandelCategory}/>} />
+            <Route path="category/edit/:id" element={<EditCategory onUpdate={onCatelUpdate} />} />
           </Route>
         </Routes>
       </BrowserRouter>
-      <form className='formadd' style={{
-        position: 'fixed',
-        top: 0,
-        width: '100%',
-        background: 'gainsboro',
-        display: 'none'
-      }}>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Name</label>
-          <input type="text" class="form-control" id="Name" aria-describedby="emailHelp" />
-          <div id="emailHelp" class="form-text">Điền tên</div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">avatar</label>
-          <input type="text" class="form-control" id="avatar" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">price</label>
-          <input type="text" class="form-control" id="price" />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-                <form className='formedit' style={{
-                    position: 'fixed',
-                    top: 0,
-                    width: '100%',
-                    background: 'gainsboro',
-                    display: 'none'
-                  }} >
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Name</label>
-                      <input type="text" class="form-control" id="namedit" aria-describedby="emailHelp" />
-                      <div id="emailHelp" class="form-text">Điền tên</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">avatar</label>
-                      <input type="text" class="form-control" id="avataredit" />
-                    </div>
-                    <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">price</label>
-                    <input type="text" class="form-control" id="pricedit" />
-                  </div>
-                    <button type="submit" class="btn btn-primary " id='btn-edit'>Submit</button>
-                  </form>
     </div>
-      
+
   );
 }
-
-// - Trang chủ
-// - Trang sản phẩm
-// - Trang chi tiết sản phẩm
-// - Trang danh mục sản phẩm
 
 
 

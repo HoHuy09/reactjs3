@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { signup } from "../src/api/authAPI";
+import { signup } from "../../api/authAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { authenticate } from "../src/authenticate";
+import { authenticate } from "../../../src/authenticate";
 
 const Signup = () => {
   const { register, handleSubmit } = useForm();

@@ -1,23 +1,23 @@
 import instance from "./instance";
 
-export const create = (name) => {
-  const url = "/products";
+export const createCate = (name) => {
+  const url = "/categories";
   return instance.post(url, name);
 };
-export const list = () => {
-  const url = "/products";
+export const listCate = () => {
+  const url = "/categories";
   return instance.get(url);
 };
-export const read = (id) => {
-  const url = "/products/" + id;
+export const readCate = (id) => {
+  const url = "/categories/" + id;
   return instance.get(url);
 };
-export const remove = (id) => {
-  const url = "/products/" + id;
+export const removeCate = (id) => {
+  const url = "/categories/" + id;
   return instance.delete(url);
 };
-export const update = (name) => {
-    const url = "/products/" + name.id;
+export const updateCate = (name) => {
+    const url = "/categories/" + name.id;
     return instance.patch(url, name);
   };
 
